@@ -1,0 +1,38 @@
+#!/usr/bin/env python
+
+import sys
+import requests
+
+sys.path.append('../')
+
+import credentials as cd
+
+import pyetrade
+
+# initialize ETrade order
+order = pyetrade.order.ETradeOrder(cd.CONSUMER_KEY, cd.SECRET_KEY, cd.OAUTH_TOKEN, cd.OAUTH_TOKEN_SECRET)
+
+symbol='APHA'
+
+# print(order.place_equity_order(resp_format='json', accountId=cd.ACCOUNT_ID, symbol=symbol, orderAction='BUY',
+#     clientOrderId='1a2b3c', priceType='MARKET', quantity=5, orderTerm='GOOD_UNTIL_CANCEL',
+#     marketSession='REGULAR'))
+api_url = f'https://apisb.etrade.com/v1/accounts/{cd.ACCOUNT_ID_KEY}/orders/place'
+
+payload = {
+    "accountId": cd.ACCOUNT_ID,
+    "clientOrderId": 'whatevs',
+    "limitPrice": '12',
+    "quantity": 50,
+    "symbol": symbol,
+    "orderAction": 'BUY',
+    "priceType": "LIMIT",
+    "marketSession": "REGULAR",
+    "orderTerm": "GOOD_FOR_DAY"
+}
+
+
+s = requests.Session()
+
+print(order.perform_request(method=s.post, resp_format='json', api_url=api_url, payload=payload))
+print(order.list_orders(cd.ACCOUNT_ID_KEY, resp_format='json'))
