@@ -1,8 +1,0 @@
-- Implement paging for pulling orders [done]
-- Watch SELL orders to make sure they are filled before altering
-- Remove seen but not bought tickers from portfolio
-  wallet
-- Stop losses: added subscription to sell if price drops below 80% original
-- Unit & integration tests
-- Account for filled SELL orders in determining portfolio
-    - rn everything is added (filled sell orders should be subtracted)
